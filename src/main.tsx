@@ -1,4 +1,3 @@
-import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { createGlobalStyle } from 'styled-components'
 import { MainPage } from './pages/MainPage.tsx'
