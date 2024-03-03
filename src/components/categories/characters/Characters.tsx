@@ -8,7 +8,7 @@ import { FilterButton } from '../../filter-button/FilterButton'
 import { Pagination } from '../../pagination/Pagination'
 import { CharacterModal } from '../../modals/character/CharacterModal'
 import { useDebounce } from '../../../utils/hooks/useDebounce'
-import { StyledAccordionContent, StyledAccordionHeader, StyledAccordionItem, StyledAccordionRoot, Trigger } from '../../accordeon/Accordeon'
+import { StyledAccordionContent, StyledAccordionHeader, StyledAccordionItem, StyledAccordionRoot, Trigger } from '../../accordion/Accordion'
 import { Loader } from '../../loader/Loader'
 
 const Container = styled.div`

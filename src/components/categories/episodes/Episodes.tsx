@@ -9,7 +9,7 @@ import { Pagination } from '../../pagination/Pagination'
 import { EpisodeModal } from '../../modals/episode/EpisodeModal'
 import { useDebounce } from '../../../utils/hooks/useDebounce'
 import { Loader } from '../../loader/Loader'
-import { StyledAccordionContent, StyledAccordionHeader, StyledAccordionRoot, Trigger } from '../../accordeon/Accordeon'
+import { StyledAccordionContent, StyledAccordionHeader, StyledAccordionRoot, Trigger } from '../../accordion/Accordion'
 
 const Container = styled.div`
   width: 700px;

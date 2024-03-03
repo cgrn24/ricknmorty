@@ -4,12 +4,11 @@ import { FC, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { getLocations } from 'rickmortyapi'
 import { FilterButton } from '../../filter-button/FilterButton'
-import * as Accordion from '@radix-ui/react-accordion'
 import { Pagination } from '../../pagination/Pagination'
 import { LocationModal } from '../../modals/location/LocationModa'
 import { useDebounce } from '../../../utils/hooks/useDebounce'
 import { Loader } from '../../loader/Loader'
-import { StyledAccordionContent, StyledAccordionHeader, StyledAccordionItem, StyledAccordionRoot } from '../../accordeon/Accordeon'
+import { StyledAccordionContent, StyledAccordionHeader, StyledAccordionItem, StyledAccordionRoot, Trigger } from '../../accordion/Accordion'
 
 const Container = styled.div`
   width: 700px;
@@ -160,13 +159,13 @@ export const Locations: FC<Props> = ({ searchValue }) => {
         <StyledAccordionRoot type='multiple'>
           <StyledAccordionItem value='locations'>
             <StyledAccordionHeader>
-              <Accordion.Trigger>Filters</Accordion.Trigger>
+              <Trigger>Filters</Trigger>
             </StyledAccordionHeader>
             <StyledAccordionContent>
               <StyledButton onClick={onClearFilters}>Clear all filters</StyledButton>
               <StyledAccordionItem value='type'>
                 <StyledAccordionHeader>
-                  <Accordion.Trigger>Type</Accordion.Trigger>
+                  <Trigger>Type</Trigger>
                 </StyledAccordionHeader>
                 <StyledAccordionContent>
                   {typeProperties.map((el) => (
@@ -178,7 +177,7 @@ export const Locations: FC<Props> = ({ searchValue }) => {
               </StyledAccordionItem>
               <StyledAccordionItem value='dimensions'>
                 <StyledAccordionHeader>
-                  <Accordion.Trigger>Dimension</Accordion.Trigger>
+                  <Trigger>Dimension</Trigger>
                 </StyledAccordionHeader>
                 <StyledAccordionContent>
                   {dimensionProperties.map((el) => (
