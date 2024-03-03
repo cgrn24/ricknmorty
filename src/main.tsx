@@ -15,10 +15,8 @@ const Global = createGlobalStyle`
 const queryClient = new QueryClient()
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <Global />
-      <MainPage />
-    </QueryClientProvider>
-  </React.StrictMode>
+  <QueryClientProvider client={queryClient}>
+    <Global />
+    <MainPage />
+  </QueryClientProvider>
 )

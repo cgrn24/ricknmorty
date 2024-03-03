@@ -4,8 +4,8 @@ import { FC } from 'react'
 import styled from 'styled-components'
 
 type Props = {
-  category: 'Characters' | 'Episodes' | 'Locations'
-  setCategory: (value: 'Characters' | 'Episodes' | 'Locations') => void
+  category: 'Characters' | 'Episodes' | 'Locations' | ''
+  setCategory: (value: 'Characters' | 'Episodes' | 'Locations' | '') => void
 }
 
 const Trigger = styled(RadixSelect.Trigger)`

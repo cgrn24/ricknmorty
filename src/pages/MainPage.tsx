@@ -28,8 +28,9 @@ const StyledTitle = styled.h1`
 
 export const MainPage = () => {
   const [searchValue, setSearchValue] = useState('')
-  const [category, setCategory] = useState<'Characters' | 'Episodes' | 'Locations'>('Characters')
-
+  const [category, setCategory] = useState<'Characters' | 'Episodes' | 'Locations' | ''>('')
+  // eslint-disable-next-line no-debugger
+  // debugger
   useEffect(() => {
     const savedSearchValue = localStorage.getItem('searchValue')
     const savedCategory = localStorage.getItem('category')
@@ -40,6 +41,8 @@ export const MainPage = () => {
 
     if (savedCategory) {
       setCategory(savedCategory as 'Characters' | 'Episodes' | 'Locations')
+    } else {
+      setCategory('Characters')
     }
   }, [])
   useEffect(() => {
@@ -54,8 +57,6 @@ export const MainPage = () => {
       <StyledContainer>
         <StyledTitle>Rick and Morty wiki</StyledTitle>
         <Toolbar category={category} setCategory={setCategory} searchValue={searchValue} setSearchValue={setSearchValue} />
-        {/* <Search setValue={setSearchValue} value={searchValue} />
-        <SelectCategory category={category} setCategory={setCategory} /> */}
         {category === 'Characters' && <Characters searchValue={searchValue} />}
         {category === 'Episodes' && <Episodes searchValue={searchValue} />}
         {category === 'Locations' && <Locations searchValue={searchValue} />}
