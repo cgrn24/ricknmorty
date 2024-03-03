@@ -62,7 +62,11 @@ export const Locations: FC<Props> = ({ searchValue }) => {
   const debouncedValue = useDebounce(searchValue, 300)
   const { data, isLoading, isError } = useQuery({ queryKey: ['locations', debouncedValue, type, dimension, page], queryFn: locations })
   const newData = data?.data.results
-  const columns = ['Name', 'Type', 'Dimension']
+  const columns = [
+    { name: 'Name', width: '35%' },
+    { name: 'Type', width: '20%' },
+    { name: 'Dimension', width: '25%' },
+  ]
   const typeProperties = [
     'Planet',
     'Cluster',

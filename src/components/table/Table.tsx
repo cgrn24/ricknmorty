@@ -5,8 +5,19 @@ import styled from 'styled-components'
 type Table = {
   children: React.ReactNode
 }
+
+type TableHeadCell = {
+  children: React.ReactNode
+  width: string
+}
+
+type Column = {
+  name: string
+  width: string
+}
+
 type Columns = {
-  columns: string[]
+  columns: Column[]
 }
 
 const StyledTable = styled.table`
@@ -31,7 +42,8 @@ export const TableRow: FC<Table> = ({ children }) => {
   return <tr>{children}</tr>
 }
 
-const StyledHeadCell = styled.th`
+const StyledHeadCell = styled.th<{ width: string }>`
+  width: ${(props) => props.width};
   padding: 6px 24px;
   > span {
     user-select: none;
@@ -41,9 +53,9 @@ const StyledHeadCell = styled.th`
   }
 `
 
-export const TableHeadCell: FC<Table> = ({ children }) => {
+export const TableHeadCell: FC<TableHeadCell> = ({ children, width }) => {
   return (
-    <StyledHeadCell>
+    <StyledHeadCell width={width}>
       <span>{children}</span>
     </StyledHeadCell>
   )
@@ -63,7 +75,9 @@ export const TableHeader: FC<Columns> = ({ columns }) => {
     <TableHead>
       <TableRow>
         {columns.map((el) => (
-          <TableHeadCell key={el}>{el}</TableHeadCell>
+          <TableHeadCell key={el.name} width={el.width}>
+            {el.name}
+          </TableHeadCell>
         ))}
       </TableRow>
     </TableHead>

@@ -62,7 +62,11 @@ export const Episodes: FC<Props> = ({ searchValue }) => {
   const debouncedValue = useDebounce(searchValue, 300)
   const { data, isLoading, isError } = useQuery({ queryKey: ['episodes', debouncedValue, episode, page], queryFn: episodes })
   const newData = data?.data.results
-  const columns = ['Name', 'Air date', 'Episode code']
+  const columns = [
+    { name: 'Name', width: '30%' },
+    { name: 'Air date', width: '30%' },
+    { name: 'Episode code', width: '20%' },
+  ]
   const episodeProperties = [
     'S01E01',
     'S01E02',

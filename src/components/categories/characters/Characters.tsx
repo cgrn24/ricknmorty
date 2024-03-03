@@ -69,7 +69,11 @@ export const Characters: FC<Props> = ({ searchValue }) => {
   const debouncedValue = useDebounce(searchValue, 300)
   const { data, isLoading, isError } = useQuery({ queryKey: ['characters', debouncedValue, status, species, type, gender, page], queryFn: characters })
   const newData = data?.data.results
-  const columns = ['Name', 'Species', 'Status']
+  const columns = [
+    { name: 'Name', width: '45%' },
+    { name: 'Species', width: '15%' },
+    { name: 'Status', width: '20%' },
+  ]
   const statusProperies = ['Alive', 'Dead', 'Unknown']
 
   const speciesProperties = ['Human', 'Alien', 'Humanoid', 'Poopybutthole', 'Mythological', 'Unknown', 'Animal', 'Disease', 'Robot', 'Cronenberg', 'Planet']
