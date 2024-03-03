@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { Characters } from '../components/categories/characters/Characters'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Episodes } from '../components/categories/episodes/Episodes'
 import { Locations } from '../components/categories/locations/Locations'
 import { Toolbar } from '../components/toolbar/Toolbar'
@@ -30,6 +30,25 @@ export const MainPage = () => {
   const [searchValue, setSearchValue] = useState('')
   const [category, setCategory] = useState<'Characters' | 'Episodes' | 'Locations'>('Characters')
 
+  useEffect(() => {
+    const savedSearchValue = localStorage.getItem('searchValue')
+    const savedCategory = localStorage.getItem('category')
+
+    if (savedSearchValue) {
+      setSearchValue(savedSearchValue)
+    }
+
+    if (savedCategory) {
+      setCategory(savedCategory as 'Characters' | 'Episodes' | 'Locations')
+    }
+  }, [])
+  useEffect(() => {
+    localStorage.setItem('searchValue', searchValue)
+  }, [searchValue])
+
+  useEffect(() => {
+    localStorage.setItem('category', category)
+  }, [category])
   return (
     <StyledWrapper>
       <StyledContainer>
