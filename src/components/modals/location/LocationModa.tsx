@@ -34,7 +34,7 @@ export const LocationModal: FC<Props> = ({ open, setOpen, id }) => {
     if (!charData.data.length) {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       //@ts-ignore
-      episodesNumber.push(episodesData.data.episode)
+      residentsName.push(charData.data.name)
     } else {
       charData.data.forEach((el) => {
         residentsName.push(el.name)

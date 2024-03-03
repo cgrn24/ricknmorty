@@ -29,8 +29,6 @@ const StyledTitle = styled.h1`
 export const MainPage = () => {
   const [searchValue, setSearchValue] = useState('')
   const [category, setCategory] = useState<'Characters' | 'Episodes' | 'Locations' | ''>('')
-  // eslint-disable-next-line no-debugger
-  // debugger
   useEffect(() => {
     const savedSearchValue = localStorage.getItem('searchValue')
     const savedCategory = localStorage.getItem('category')

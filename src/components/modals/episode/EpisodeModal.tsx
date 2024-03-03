@@ -34,7 +34,7 @@ export const EpisodeModal: FC<Props> = ({ open, setOpen, id }) => {
     if (!episodeChars.data.length) {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       //@ts-ignore
-      episodesNumber.push(episodesData.data.episode)
+      charactersName.push(episodeChars.data.episode)
     } else {
       episodeChars.data.forEach((el) => {
         charactersName.push(el.name)

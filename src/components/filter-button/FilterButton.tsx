@@ -19,7 +19,6 @@ const StyledButton = styled.button<StyledButtonProps>`
   border: 1px solid black;
   border-radius: 4px;
   color: black;
-  /* padding: 10px; */
   cursor: pointer;
   outline: none;
 
