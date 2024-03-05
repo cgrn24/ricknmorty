@@ -2,7 +2,7 @@ import { FC, ReactNode } from 'react'
 import styled from 'styled-components'
 
 type StyledButtonProps = {
-  status: string
+  value: string
   property: string
 }
 type Props = {
@@ -14,7 +14,7 @@ type Props = {
 }
 
 const StyledButton = styled.button<StyledButtonProps>`
-  background-color: ${(props) => (props.status === props.property ? '#007bff' : 'white')};
+  background-color: ${(props) => (props.value === props.property ? '#007bff' : 'white')};
   padding: 4px 8px;
   border: 1px solid black;
   border-radius: 4px;
@@ -23,7 +23,7 @@ const StyledButton = styled.button<StyledButtonProps>`
   outline: none;
 
   &:hover {
-    background-color: ${(props) => (props.status === props.property ? '#0056b3' : 'lightgray')};
+    background-color: ${(props) => (props.value === props.property ? '#0056b3' : 'lightgray')};
   }
 `
 
@@ -36,7 +36,7 @@ export const FilterButton: FC<Props> = ({ value, setValue, property, resetPage, 
   }
 
   return (
-    <StyledButton onClick={handleClick} status={value} property={property}>
+    <StyledButton onClick={handleClick} value={value} property={property}>
       {children}
     </StyledButton>
   )

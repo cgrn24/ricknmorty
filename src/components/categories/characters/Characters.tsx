@@ -112,9 +112,6 @@ export const Characters: FC<Props> = ({ searchValue }) => {
 
   const genderProperties = ['Female', 'Male', 'Genderless', 'Unknown']
 
-  if (isLoading) {
-    return <Loader />
-  }
   if (isError) {
     return <div>Some error occured. Please reload page.</div>
   }
@@ -181,23 +178,26 @@ export const Characters: FC<Props> = ({ searchValue }) => {
           </Accordion.Item>
         </StyledAccordionRoot>
       </FiltersContainer>
-      <Table>
-        <TableHeader columns={columns} />
-        <TableBody>
-          {newData?.map((el) => {
-            return (
-              <TableRow key={el.id}>
-                <TableCell>{el.name}</TableCell>
-                <TableCell>{el.species}</TableCell>
-                <TableCell>{el.status}</TableCell>
-                <TableCell>
-                  <StyledButton onClick={() => modalHandler(el.id)}>More info</StyledButton>
-                </TableCell>
-              </TableRow>
-            )
-          })}
-        </TableBody>
-      </Table>
+      {isLoading && <Loader />}
+      {!isLoading && (
+        <Table>
+          <TableHeader columns={columns} />
+          <TableBody>
+            {newData?.map((el) => {
+              return (
+                <TableRow key={el.id}>
+                  <TableCell>{el.name}</TableCell>
+                  <TableCell>{el.species}</TableCell>
+                  <TableCell>{el.status}</TableCell>
+                  <TableCell>
+                    <StyledButton onClick={() => modalHandler(el.id)}>More info</StyledButton>
+                  </TableCell>
+                </TableRow>
+              )
+            })}
+          </TableBody>
+        </Table>
+      )}
       <Pagination currentPage={page} setCurrentPage={setPage} totalPages={data?.data.info?.pages} />
       <CharacterModal open={open} setOpen={setOpen} id={charid} />
     </Container>
