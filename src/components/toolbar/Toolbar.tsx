@@ -2,6 +2,7 @@ import { FC } from 'react'
 import styled from 'styled-components'
 import Search from '../search/Search'
 import { SelectCategory } from '../select-category/SelectCategory'
+import { Category } from '../../pages/MainPage'
 
 const Container = styled.div`
   margin-top: 30px;
@@ -12,8 +13,8 @@ const Container = styled.div`
   flex-wrap: nowrap;
 `
 type Props = {
-  category: 'Characters' | 'Episodes' | 'Locations' | ''
-  setCategory: (value: 'Characters' | 'Episodes' | 'Locations' | '') => void
+  category: Category
+  setCategory: (value: Category) => void
   searchValue: string
   setSearchValue: (value: string) => void
 }

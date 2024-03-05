@@ -26,9 +26,11 @@ const StyledTitle = styled.h1`
   font-size: 46px;
 `
 
+export type Category = 'Characters' | 'Episodes' | 'Locations' | ''
+
 export const MainPage = () => {
   const [searchValue, setSearchValue] = useState('')
-  const [category, setCategory] = useState<'Characters' | 'Episodes' | 'Locations' | ''>('')
+  const [category, setCategory] = useState<Category>('')
   useEffect(() => {
     const savedSearchValue = localStorage.getItem('searchValue')
     const savedCategory = localStorage.getItem('category')
@@ -38,7 +40,7 @@ export const MainPage = () => {
     }
 
     if (savedCategory) {
-      setCategory(savedCategory as 'Characters' | 'Episodes' | 'Locations')
+      setCategory(savedCategory as Category)
     } else {
       setCategory('Characters')
     }

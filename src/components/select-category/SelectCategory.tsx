@@ -2,10 +2,11 @@ import * as RadixSelect from '@radix-ui/react-select'
 import { ChevronDownIcon } from '@radix-ui/react-icons'
 import { FC } from 'react'
 import styled from 'styled-components'
+import { Category } from '../../pages/MainPage'
 
 type Props = {
-  category: 'Characters' | 'Episodes' | 'Locations' | ''
-  setCategory: (value: 'Characters' | 'Episodes' | 'Locations' | '') => void
+  category: Category
+  setCategory: (value: Category) => void
 }
 
 const Trigger = styled(RadixSelect.Trigger)`

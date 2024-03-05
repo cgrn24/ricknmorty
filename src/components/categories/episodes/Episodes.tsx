@@ -4,12 +4,11 @@ import { FC, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { getEpisodes } from 'rickmortyapi'
 import { FilterButton } from '../../filter-button/FilterButton'
-import * as Accordion from '@radix-ui/react-accordion'
 import { Pagination } from '../../pagination/Pagination'
 import { EpisodeModal } from '../../modals/episode/EpisodeModal'
 import { useDebounce } from '../../../utils/hooks/useDebounce'
 import { Loader } from '../../loader/Loader'
-import { StyledAccordionContent, StyledAccordionHeader, StyledAccordionRoot, Trigger } from '../../accordion/Accordion'
+import { StyledAccordionContent, StyledAccordionHeader, StyledAccordionItem, StyledAccordionRoot, Trigger } from '../../accordion/Accordion'
 
 const Container = styled.div`
   width: 700px;
@@ -33,6 +32,15 @@ const FiltersContainer = styled.div`
   width: 100%;
   margin-top: 10px;
   margin-bottom: 10px;
+`
+
+const FilterButtonsContainer = styled.div<{ direction: string; jcontent: string }>`
+  width: 100%;
+  display: flex;
+  flex-direction: ${(props) => props.direction};
+  justify-content: ${(props) => props.jcontent};
+  align-items: center;
+  flex-wrap: wrap;
 `
 
 type Props = {
@@ -130,19 +138,23 @@ export const Episodes: FC<Props> = ({ searchValue }) => {
     <Container>
       <FiltersContainer>
         <StyledAccordionRoot type='multiple'>
-          <Accordion.Item value='episodes'>
+          <StyledAccordionItem value='episodes'>
             <StyledAccordionHeader>
               <Trigger>Filters</Trigger>
             </StyledAccordionHeader>
             <StyledAccordionContent>
-              <StyledButton onClick={onClearFilters}>Clear all filters</StyledButton>
-              {episodeProperties.map((el) => (
-                <FilterButton key={el} property={el} value={episode} setValue={setEpisode} resetPage={resetPage}>
-                  {el}
-                </FilterButton>
-              ))}
+              <FilterButtonsContainer direction='column' jcontent='flex-start'>
+                <StyledButton onClick={onClearFilters}>Clear all filters</StyledButton>
+                <FilterButtonsContainer direction='row' jcontent='center'>
+                  {episodeProperties.map((el) => (
+                    <FilterButton key={el} property={el} value={episode} setValue={setEpisode} resetPage={resetPage}>
+                      {el}
+                    </FilterButton>
+                  ))}
+                </FilterButtonsContainer>
+              </FilterButtonsContainer>
             </StyledAccordionContent>
-          </Accordion.Item>
+          </StyledAccordionItem>
         </StyledAccordionRoot>
       </FiltersContainer>
       <Table>
