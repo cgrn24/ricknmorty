@@ -74,6 +74,7 @@ export const Episodes: FC<Props> = ({ searchValue }) => {
     { name: 'Name', width: '30%' },
     { name: 'Air date', width: '30%' },
     { name: 'Episode code', width: '20%' },
+    { name: 'More info', width: '20%' },
   ]
   const episodeProperties = [
     'S01E01',

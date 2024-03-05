@@ -23,6 +23,7 @@ type Columns = {
 const StyledTable = styled.table`
   border-collapse: collapse;
   width: 100%;
+  table-layout: fixed;
   border: 1px solid black;
 `
 

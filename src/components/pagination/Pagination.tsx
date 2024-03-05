@@ -43,7 +43,7 @@ export const Pagination: FC<Props> = ({ totalPages, currentPage, setCurrentPage 
         Previous Page
       </StyledButton>
       <span>
-        Page {currentPage} of {totalPages}
+        Page {currentPage} of {totalPages ? totalPages : 1}
       </span>
       <StyledButton onClick={nextPage} disabled={currentPage === totalPages}>
         Next Page

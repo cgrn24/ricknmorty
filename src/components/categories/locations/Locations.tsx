@@ -66,6 +66,7 @@ export const Locations: FC<Props> = ({ searchValue }) => {
     { name: 'Name', width: '35%' },
     { name: 'Type', width: '20%' },
     { name: 'Dimension', width: '25%' },
+    { name: 'More info', width: '20%' },
   ]
   const typeProperties = [
     'Planet',

@@ -73,6 +73,7 @@ export const Characters: FC<Props> = ({ searchValue }) => {
     { name: 'Name', width: '45%' },
     { name: 'Species', width: '15%' },
     { name: 'Status', width: '20%' },
+    { name: 'More info', width: '20%' },
   ]
   const statusProperies = ['Alive', 'Dead', 'Unknown']
 
