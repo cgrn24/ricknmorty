@@ -10,6 +10,7 @@ import { CharacterModal } from '../../modals/character/CharacterModal'
 import { useDebounce } from '../../../utils/hooks/useDebounce'
 import { StyledAccordionContent, StyledAccordionHeader, StyledAccordionItem, StyledAccordionRoot, Trigger } from '../../accordion/Accordion'
 import { Loader } from '../../loader/Loader'
+import { genderProperties, speciesProperties, statusProperies, typeProperties } from './characterProperties'
 
 const Container = styled.div`
   width: 700px;
@@ -75,42 +76,6 @@ export const Characters: FC<Props> = ({ searchValue }) => {
     { name: 'Status', width: '20%' },
     { name: 'More info', width: '20%' },
   ]
-  const statusProperies = ['Alive', 'Dead', 'Unknown']
-
-  const speciesProperties = ['Human', 'Alien', 'Humanoid', 'Poopybutthole', 'Mythological', 'Unknown', 'Animal', 'Disease', 'Robot', 'Cronenberg', 'Planet']
-
-  const typeProperties = [
-    'Human with antennae',
-    'Human with ants in his eyes',
-    'Fish-Person',
-    'Cromulon',
-    'Self-aware arm',
-    'Cat-Person',
-    'Human with baby legs',
-    'Parasite',
-    'Bepisian',
-    'Hivemind',
-    'Mytholog',
-    'Human with giant head',
-    'Dog',
-    'Bird-Person',
-    'Korblock',
-    'Boobloosian',
-    'Elephant-Person',
-    'Superhuman',
-    'Gromflomite',
-    'Centaur',
-    'Organic gun',
-    'Microverse inhabitant',
-    'Vampire',
-    'Light bulb-Alien',
-    'Robot-Crocodile hybrid',
-    'Zigerion',
-    'Cone-nippled alien',
-    'Demon',
-  ]
-
-  const genderProperties = ['Female', 'Male', 'Genderless', 'Unknown']
 
   if (isError) {
     return <div>Some error occured. Please reload page.</div>
