@@ -8,7 +8,7 @@ import { Loader } from '../../loader/Loader'
 import { StyledAccordionContent, StyledAccordionHeader, StyledAccordionItem, StyledAccordionRoot, Trigger } from '../../accordion/Accordion'
 import { dimensionProperties, typeProperties } from './locationProperties'
 import { useLocationsQuery } from '../../../services/useLocationsQuery'
-import { Container, FiltersContainer, StyledButton } from '../StyledElements'
+import { Container, FiltersContainer, StyledButton } from '../StyledCategoryElements'
 
 type Props = {
   searchValue: string

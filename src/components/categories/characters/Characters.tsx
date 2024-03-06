@@ -8,7 +8,7 @@ import { StyledAccordionContent, StyledAccordionHeader, StyledAccordionItem, Sty
 import { Loader } from '../../loader/Loader'
 import { genderProperties, speciesProperties, statusProperies, typeProperties } from './characterProperties'
 import { useCharactersQuery } from '../../../services/useCharactersQuery'
-import { Container, FiltersContainer, StyledButton } from '../StyledElements'
+import { Container, FiltersContainer, StyledButton } from '../StyledCategoryElements'
 
 type Props = {
   searchValue: string

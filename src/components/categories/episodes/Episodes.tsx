@@ -9,7 +9,7 @@ import { Loader } from '../../loader/Loader'
 import { StyledAccordionContent, StyledAccordionHeader, StyledAccordionItem, StyledAccordionRoot, Trigger } from '../../accordion/Accordion'
 import { episodeProperties } from './episodeProperties'
 import { useEpisodesQuery } from '../../../services/useEpisodesQuery'
-import { Container, FiltersContainer, StyledButton } from '../StyledElements'
+import { Container, FiltersContainer, StyledButton } from '../StyledCategoryElements'
 
 const FilterButtonsContainer = styled.div<{ direction: string; jcontent: string }>`
   width: 100%;
