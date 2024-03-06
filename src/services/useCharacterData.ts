@@ -22,19 +22,21 @@ export const useCharacterData = (id: number) => {
     queryFn: () => getEpisode(episodes),
     refetchOnWindowFocus: false,
   })
+  console.log(episodesQuery.data?.data)
 
   const episodesNumber: string[] = []
   if (episodesQuery.isSuccess) {
     if (!episodesQuery.data.data.length) {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       //@ts-ignore
-      episodesNumber.push(episodesQuery.data.episode)
+      episodesNumber.push(episodesQuery.data.data.episode)
     } else {
       episodesQuery.data.data.forEach((el: { episode: string }) => {
         episodesNumber.push(el.episode)
       })
     }
   }
+  console.log(episodesNumber)
 
   return {
     characterData,
