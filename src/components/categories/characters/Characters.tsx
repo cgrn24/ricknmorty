@@ -1,7 +1,5 @@
-import styled from 'styled-components'
 import { Table, TableBody, TableCell, TableHeader, TableRow } from '../../table/Table'
 import { FC, useState } from 'react'
-import * as Accordion from '@radix-ui/react-accordion'
 import { FilterButton } from '../../filter-button/FilterButton'
 import { Pagination } from '../../pagination/Pagination'
 import { CharacterModal } from '../../modals/character/CharacterModal'
@@ -10,31 +8,7 @@ import { StyledAccordionContent, StyledAccordionHeader, StyledAccordionItem, Sty
 import { Loader } from '../../loader/Loader'
 import { genderProperties, speciesProperties, statusProperies, typeProperties } from './characterProperties'
 import { useCharactersQuery } from '../../../services/useCharactersQuery'
-
-const Container = styled.div`
-  width: 700px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-`
-
-const StyledButton = styled.button`
-  font-size: 16px;
-  padding: 2px 4px;
-  background-color: white;
-  color: black;
-  border: none;
-  border-bottom: 2px solid #0056b3;
-  cursor: pointer;
-  outline: none;
-`
-
-const FiltersContainer = styled.div`
-  width: 100%;
-  margin-top: 10px;
-  margin-bottom: 10px;
-`
+import { Container, FiltersContainer, StyledButton } from '../StyledElements'
 
 type Props = {
   searchValue: string
@@ -80,7 +54,7 @@ export const Characters: FC<Props> = ({ searchValue }) => {
     <Container>
       <FiltersContainer>
         <StyledAccordionRoot type='multiple'>
-          <Accordion.Item value='characters'>
+          <StyledAccordionItem value='characters'>
             <StyledAccordionHeader>
               <Trigger>Filters</Trigger>
             </StyledAccordionHeader>
@@ -135,7 +109,7 @@ export const Characters: FC<Props> = ({ searchValue }) => {
                 </StyledAccordionContent>
               </StyledAccordionItem>
             </StyledAccordionContent>
-          </Accordion.Item>
+          </StyledAccordionItem>
         </StyledAccordionRoot>
       </FiltersContainer>
       {isLoading && <Loader />}
