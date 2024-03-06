@@ -1,8 +1,6 @@
 import styled from 'styled-components'
 import { Table, TableBody, TableCell, TableHeader, TableRow } from '../../table/Table'
 import { FC, useState } from 'react'
-import { useQuery } from '@tanstack/react-query'
-import { getLocations } from 'rickmortyapi'
 import { FilterButton } from '../../filter-button/FilterButton'
 import { Pagination } from '../../pagination/Pagination'
 import { LocationModal } from '../../modals/location/LocationModa'
@@ -10,6 +8,7 @@ import { useDebounce } from '../../../utils/hooks/useDebounce'
 import { Loader } from '../../loader/Loader'
 import { StyledAccordionContent, StyledAccordionHeader, StyledAccordionItem, StyledAccordionRoot, Trigger } from '../../accordion/Accordion'
 import { dimensionProperties, typeProperties } from './locationProperties'
+import { useLocationsQuery } from '../../../services/useLocationsQuery'
 
 const Container = styled.div`
   width: 700px;
@@ -56,12 +55,8 @@ export const Locations: FC<Props> = ({ searchValue }) => {
     setDimension('')
     resetPage()
   }
-  const locations = async () => {
-    const data = await getLocations({ name: searchValue, type, dimension, page })
-    return data
-  }
   const debouncedValue = useDebounce(searchValue, 300)
-  const { data, isLoading, isError } = useQuery({ queryKey: ['locations', debouncedValue, type, dimension, page], queryFn: locations })
+  const { data, isLoading, isError } = useLocationsQuery({ name: debouncedValue, type, dimension, page })
   const newData = data?.data.results
   const columns = [
     { name: 'Name', width: '35%' },

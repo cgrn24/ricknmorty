@@ -1,9 +1,7 @@
 import styled from 'styled-components'
 import { Table, TableBody, TableCell, TableHeader, TableRow } from '../../table/Table'
 import { FC, useState } from 'react'
-import { useQuery } from '@tanstack/react-query'
 import * as Accordion from '@radix-ui/react-accordion'
-import { getCharacters } from 'rickmortyapi'
 import { FilterButton } from '../../filter-button/FilterButton'
 import { Pagination } from '../../pagination/Pagination'
 import { CharacterModal } from '../../modals/character/CharacterModal'
@@ -11,6 +9,7 @@ import { useDebounce } from '../../../utils/hooks/useDebounce'
 import { StyledAccordionContent, StyledAccordionHeader, StyledAccordionItem, StyledAccordionRoot, Trigger } from '../../accordion/Accordion'
 import { Loader } from '../../loader/Loader'
 import { genderProperties, speciesProperties, statusProperies, typeProperties } from './characterProperties'
+import { useCharactersQuery } from '../../../services/useCharactersQuery'
 
 const Container = styled.div`
   width: 700px;
@@ -63,12 +62,8 @@ export const Characters: FC<Props> = ({ searchValue }) => {
     setGender('')
     resetPage()
   }
-  const characters = async () => {
-    const data = await getCharacters({ name: searchValue, status, species, type, gender, page })
-    return data
-  }
   const debouncedValue = useDebounce(searchValue, 300)
-  const { data, isLoading, isError } = useQuery({ queryKey: ['characters', debouncedValue, status, species, type, gender, page], queryFn: characters })
+  const { data, isLoading, isError } = useCharactersQuery({ name: debouncedValue, status, species, type, gender, page })
   const newData = data?.data.results
   const columns = [
     { name: 'Name', width: '45%' },

@@ -1,8 +1,6 @@
 import styled from 'styled-components'
 import { Table, TableBody, TableCell, TableHeader, TableRow } from '../../table/Table'
 import { FC, useState } from 'react'
-import { useQuery } from '@tanstack/react-query'
-import { getEpisodes } from 'rickmortyapi'
 import { FilterButton } from '../../filter-button/FilterButton'
 import { Pagination } from '../../pagination/Pagination'
 import { EpisodeModal } from '../../modals/episode/EpisodeModal'
@@ -10,6 +8,7 @@ import { useDebounce } from '../../../utils/hooks/useDebounce'
 import { Loader } from '../../loader/Loader'
 import { StyledAccordionContent, StyledAccordionHeader, StyledAccordionItem, StyledAccordionRoot, Trigger } from '../../accordion/Accordion'
 import { episodeProperties } from './episodeProperties'
+import { useEpisodesQuery } from '../../../services/useEpisodesQuery'
 
 const Container = styled.div`
   width: 700px;
@@ -64,12 +63,8 @@ export const Episodes: FC<Props> = ({ searchValue }) => {
     setEpisode('')
     resetPage()
   }
-  const episodes = async () => {
-    const data = await getEpisodes({ name: searchValue, episode, page })
-    return data
-  }
   const debouncedValue = useDebounce(searchValue, 300)
-  const { data, isLoading, isError } = useQuery({ queryKey: ['episodes', debouncedValue, episode, page], queryFn: episodes })
+  const { data, isLoading, isError } = useEpisodesQuery({ name: debouncedValue, episode, page })
   const newData = data?.data.results
   const columns = [
     { name: 'Name', width: '30%' },

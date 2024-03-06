@@ -2,8 +2,7 @@ import styled, { keyframes } from 'styled-components'
 import * as Dialog from '@radix-ui/react-dialog'
 import { Cross2Icon } from '@radix-ui/react-icons'
 import { FC } from 'react'
-import { getCharacter, getEpisode } from 'rickmortyapi'
-import { useQuery } from '@tanstack/react-query'
+import { useEpisodeData } from '../../../services/useEpisodeData'
 
 type Props = {
   open: boolean
@@ -12,36 +11,7 @@ type Props = {
 }
 
 export const EpisodeModal: FC<Props> = ({ open, setOpen, id }) => {
-  const residents: number[] = []
-  const getEp = async () => {
-    const data = await getEpisode(id)
-    return data
-  }
-  const query = useQuery({ queryKey: ['episode', id], queryFn: getEp })
-  const newData = query.data?.data
-  newData?.characters.forEach((el) => {
-    const parts = el.split('/')
-    const dataAfterLastSlash = parts[parts.length - 1]
-    residents.push(+dataAfterLastSlash)
-  })
-  const getChars = async () => {
-    const data = await getCharacter(residents)
-    return data
-  }
-  const { data: episodeChars, isSuccess } = useQuery({ queryKey: ['episodeChars', id, newData], queryFn: getChars, refetchOnWindowFocus: false })
-  const charactersName: string[] = []
-  if (isSuccess) {
-    if (!episodeChars.data.length) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      //@ts-ignore
-      charactersName.push(episodeChars.data.episode)
-    } else {
-      episodeChars.data.forEach((el) => {
-        charactersName.push(el.name)
-      })
-    }
-  }
-
+  const { episodeData, charactersName } = useEpisodeData(id)
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Portal>
@@ -50,13 +20,13 @@ export const EpisodeModal: FC<Props> = ({ open, setOpen, id }) => {
           <Flex>
             <TextContainer>
               <DialogDescription>
-                <b>Episode name:</b> {newData?.name}
+                <b>Episode name:</b> {episodeData?.name}
               </DialogDescription>
               <DialogDescription>
-                <b>Episode air date:</b> {newData?.air_date}
+                <b>Episode air date:</b> {episodeData?.air_date}
               </DialogDescription>
               <DialogDescription>
-                <b>Episode code:</b> {newData?.episode}
+                <b>Episode code:</b> {episodeData?.episode}
               </DialogDescription>
               <DialogDescription>
                 <b>Episode characters:</b> {charactersName.length === 1 ? charactersName[0] : charactersName.join(', ')}

@@ -2,8 +2,7 @@ import styled, { keyframes } from 'styled-components'
 import * as Dialog from '@radix-ui/react-dialog'
 import { Cross2Icon } from '@radix-ui/react-icons'
 import { FC } from 'react'
-import { getCharacter, getLocation } from 'rickmortyapi'
-import { useQuery } from '@tanstack/react-query'
+import { useLocationData } from '../../../services/useLocationData'
 
 type Props = {
   open: boolean
@@ -12,36 +11,7 @@ type Props = {
 }
 
 export const LocationModal: FC<Props> = ({ open, setOpen, id }) => {
-  const residents: number[] = []
-  const getLoc = async () => {
-    const data = await getLocation(id)
-    return data
-  }
-  const query = useQuery({ queryKey: ['location', id], queryFn: getLoc })
-  const newData = query.data?.data
-  newData?.residents.forEach((el) => {
-    const parts = el.split('/')
-    const dataAfterLastSlash = parts[parts.length - 1]
-    residents.push(+dataAfterLastSlash)
-  })
-  const getResidents = async () => {
-    const data = await getCharacter(residents)
-    return data
-  }
-  const { data: charData, isSuccess } = useQuery({ queryKey: ['charLocation', id, newData], queryFn: getResidents, refetchOnWindowFocus: false })
-  const residentsName: string[] = []
-  if (isSuccess) {
-    if (!charData.data.length) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      //@ts-ignore
-      residentsName.push(charData.data.name)
-    } else {
-      charData.data.forEach((el) => {
-        residentsName.push(el.name)
-      })
-    }
-  }
-
+  const { locationData, residentsName } = useLocationData(id)
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Portal>
@@ -50,13 +20,13 @@ export const LocationModal: FC<Props> = ({ open, setOpen, id }) => {
           <Flex>
             <TextContainer>
               <DialogDescription>
-                <b>Location name:</b> {newData?.name}
+                <b>Location name:</b> {locationData?.name}
               </DialogDescription>
               <DialogDescription>
-                <b>Location type:</b> {newData?.type}
+                <b>Location type:</b> {locationData?.type}
               </DialogDescription>
               <DialogDescription>
-                <b>Dimension:</b> {newData?.dimension}
+                <b>Dimension:</b> {locationData?.dimension}
               </DialogDescription>
               <DialogDescription>
                 <b>Location residents:</b> {residentsName.length === 1 ? residentsName[0] : residentsName.join(', ')}

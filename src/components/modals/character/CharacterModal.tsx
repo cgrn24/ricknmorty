@@ -2,8 +2,7 @@ import styled, { keyframes } from 'styled-components'
 import * as Dialog from '@radix-ui/react-dialog'
 import { Cross2Icon } from '@radix-ui/react-icons'
 import { FC } from 'react'
-import { getCharacter, getEpisode } from 'rickmortyapi'
-import { useQuery } from '@tanstack/react-query'
+import { useCharacterData } from '../../../services/useCharacterData'
 
 type Props = {
   open: boolean
@@ -12,36 +11,7 @@ type Props = {
 }
 
 export const CharacterModal: FC<Props> = ({ open, setOpen, id }) => {
-  const episodes: number[] = []
-  const getChar = async () => {
-    const data = await getCharacter(id)
-    return data
-  }
-  const query = useQuery({ queryKey: ['character', id], queryFn: getChar })
-  const newData = query.data?.data
-  newData?.episode.forEach((el) => {
-    const parts = el.split('/')
-    const dataAfterLastSlash = parts[parts.length - 1]
-    episodes.push(+dataAfterLastSlash)
-  })
-  const getEpisodes = async () => {
-    const data = await getEpisode(episodes)
-    return data
-  }
-  const { data: episodesData, isSuccess } = useQuery({ queryKey: ['charEpisodes', id, newData], queryFn: getEpisodes, refetchOnWindowFocus: false })
-  const episodesNumber: string[] = []
-  if (isSuccess) {
-    if (!episodesData.data.length) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      //@ts-ignore
-      episodesNumber.push(episodesData.data.episode)
-    } else {
-      episodesData.data.forEach((el) => {
-        episodesNumber.push(el.episode)
-      })
-    }
-  }
-
+  const { characterData, episodesNumber } = useCharacterData(id)
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Portal>
@@ -49,29 +19,29 @@ export const CharacterModal: FC<Props> = ({ open, setOpen, id }) => {
         <DialogContent>
           <Flex>
             <AvatarContainer>
-              <Avatar src={newData?.image} />
+              <Avatar src={characterData?.image} />
             </AvatarContainer>
             <TextContainer>
               <DialogDescription>
-                <b>Name:</b> {newData?.name}
+                <b>Name:</b> {characterData?.name}
               </DialogDescription>
               <DialogDescription>
-                <b>Gender:</b> {newData?.gender}
+                <b>Gender:</b> {characterData?.gender}
               </DialogDescription>
               <DialogDescription>
-                <b>Location:</b> {newData?.location.name}
+                <b>Location:</b> {characterData?.location.name}
               </DialogDescription>
               <DialogDescription>
-                <b>Origin:</b> {newData?.origin.name}
+                <b>Origin:</b> {characterData?.origin.name}
               </DialogDescription>
               <DialogDescription>
-                <b>Species:</b> {newData?.species}
+                <b>Species:</b> {characterData?.species}
               </DialogDescription>
               <DialogDescription>
-                <b>Type:</b> {newData?.type}
+                <b>Type:</b> {characterData?.type}
               </DialogDescription>
               <DialogDescription>
-                <b>Status:</b> {newData?.status}
+                <b>Status:</b> {characterData?.status}
               </DialogDescription>
               <DialogDescription>
                 <b>Episodes:</b> {episodesNumber.length === 1 ? episodesNumber[0] : episodesNumber.join(', ')}
